@@ -3,7 +3,7 @@ sources:
   - id: project-four-mechanisms
     title: Cyber Junshi four-mechanism decision model
     publisher: Cyber Junshi contributors
-    url: project://README.zh-CN.md
+    url: project://README.md
     source_type: project_original
     use_mode: apache_2_original
     commercial_allowed: true
