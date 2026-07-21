@@ -9,5 +9,10 @@ Thanks for improving Cyber Junshi.
 5. Keep the core deterministic and explainable. Do not add a required cloud, model, telemetry, or
    account dependency.
 6. Preserve the safety-first priority and explicit-write boundary.
+7. For knowledge changes, register the original source and allowed use in
+   `knowledge/sources.yaml`, add the item to `knowledge/catalog.yaml`, and run
+   `uv run cyber-junshi audit-knowledge --root .`.
+8. Treat `powerycy/goutoujunshi` as discovery-only. Do not submit paraphrased prose, examples,
+   dialogue templates, exercises, headings/order, prompts, or workflow wording from it.
 
 By contributing, you agree that your contribution is licensed under Apache-2.0.

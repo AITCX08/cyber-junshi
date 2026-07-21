@@ -18,13 +18,16 @@ from cyber_junshi.core.decision import (
 )
 from cyber_junshi.core.models import OptionInput
 from cyber_junshi.core.safety import assess_safety as assess_safety_text
+from cyber_junshi.knowledge.search import search_knowledge as search_knowledge_pack
+from cyber_junshi.storage.memory import SubjectMemoryStore
 from cyber_junshi.storage.sqlite import DecisionStore
 
 _INSTRUCTIONS = (
     "Run assess_safety first whenever immediate harm, coercion, stalking, or threats may be "
     "present. Keep facts, inferences, and unknowns separate. Compare explicit costs before "
     "choosing an action, and create stop conditions before acting. Persist an outcome only "
-    "when the user explicitly asks to record it."
+    "when the user explicitly asks to record it. Write subject memory only on an explicit "
+    "remember_question call, keep each subject isolated, and require confirmation before deletion."
 )
 
 
@@ -52,6 +55,7 @@ def create_server(database_path: Path | None = None) -> FastMCP:
     """Create an isolated MCP server backed by one explicit local database."""
 
     store = DecisionStore(database_path or default_database_path())
+    memory_store = SubjectMemoryStore(store.path)
     server = FastMCP("Cyber Junshi", instructions=_INSTRUCTIONS)
 
     @server.tool()
@@ -138,6 +142,46 @@ def create_server(database_path: Path | None = None) -> FastMCP:
         """Read-only: review one outcome already stored in the local database."""
 
         return store.review_decision(record_id)
+
+    @server.tool()
+    def search_knowledge(query: str, limit: int = 5) -> dict[str, object]:
+        """Read-only: search the audited local knowledge pack with source identifiers."""
+
+        return {"items": search_knowledge_pack(query, limit)}
+
+    @server.tool()
+    def remember_question(
+        subject_alias: str,
+        question_text: str,
+        summary: str,
+        memories: list[dict[str, Any]],
+    ) -> dict[str, object]:
+        """Local write: explicitly remember one question under one subject alias."""
+
+        return memory_store.remember_question(
+            subject_alias=subject_alias,
+            question_text=question_text,
+            summary=summary,
+            memories=memories,
+        )
+
+    @server.tool()
+    def recall_subject(subject_alias: str, limit: int = 10) -> dict[str, object]:
+        """Local read: recall only the named subject's recent questions and active memory."""
+
+        return memory_store.recall_subject(subject_alias, limit)
+
+    @server.tool()
+    def list_subjects(include_archived: bool = False) -> dict[str, object]:
+        """Local read: list subject aliases and counts without returning question text."""
+
+        return {"subjects": memory_store.list_subjects(include_archived)}
+
+    @server.tool()
+    def forget_subject(subject_alias: str, confirm: bool = False) -> dict[str, object]:
+        """Local delete: permanently remove one subject only when confirm is true."""
+
+        return memory_store.forget_subject(subject_alias, confirm)
 
     return server
 

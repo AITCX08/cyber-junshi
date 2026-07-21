@@ -45,6 +45,9 @@ Issues = "https://github.com/AITCX08/cyber-junshi/issues"
 [tool.hatch.build.targets.wheel]
 packages = ["src/cyber_junshi"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"knowledge" = "cyber_junshi/knowledge_data"
+
 [tool.pytest.ini_options]
 addopts = "-ra"
 testpaths = ["tests"]

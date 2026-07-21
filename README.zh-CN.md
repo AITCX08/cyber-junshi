@@ -58,7 +58,7 @@ uvx --from git+https://github.com/AITCX08/cyber-junshi cyber-junshi install herm
 详细说明：[Hermes](adapters/hermes/README.md)、[OpenClaw](adapters/openclaw/README.md)、
 [Codex](adapters/codex/README.md)、[Claude Desktop](adapters/claude-desktop/README.md)。
 
-## 六个 MCP 工具
+## 十一个 MCP 工具
 
 | 工具 | 作用 |
 | --- | --- |
@@ -68,6 +68,23 @@ uvx --from git+https://github.com/AITCX08/cyber-junshi cyber-junshi install herm
 | `create_action_plan` | 只读校验观察窗口和退出规则 |
 | `record_outcome` | 明确触发的本地 SQLite 写入 |
 | `review_decision` | 只读复盘一条已保存结果 |
+| `search_knowledge` | 只读检索本地知识，并返回证据等级和来源标识 |
+| `remember_question` | 明确保存一个对象的问题、摘要和选定记忆 |
+| `recall_subject` | 只读取指定对象的近期问题和有效记忆 |
+| `list_subjects` | 只列对象别名和数量，不返回问题正文 |
+| `forget_subject` | 确认后硬删除一个对象及其关联记忆 |
+
+## 独立生成的知识包
+
+[`knowledge/`](knowledge/) 下包含 19 篇核心知识和 15 篇实用表达。每条内容都在
+[`knowledge/catalog.yaml`](knowledge/catalog.yaml) 中登记来源与证据等级。上游
+`goutoujunshi` 仅作为选题发现线索；本仓库没有导入其正文、案例、话术模板、提示词或源码。
+
+内容变更应先阅读[来源与净室政策](CONTENT_PROVENANCE.md)，发布前运行：
+
+```bash
+uv run cyber-junshi audit-knowledge --root .
+```
 
 ## Skills
 
@@ -79,7 +96,9 @@ uvx --from git+https://github.com/AITCX08/cyber-junshi cyber-junshi install herm
 - 默认数据库：`~/.cyber-junshi/cyber-junshi.db`
 - 可用 `CYBER_JUNSHI_DB=/path/to/file.db` 修改路径。
 - 不需要云账号；无遥测、模型网关、聊天抓取或自动导入。
-- 不记录原始输入；只有调用 `record_outcome` 才会写入。
+- 决策输入不会自动记录；只有明确调用 `record_outcome` 才保存结果。
+- `remember_question` 仅在明确调用时，把提交的问题、摘要和选定记忆保存到一个本地对象别名下。
+- `recall_subject` 不跨对象检索；`forget_subject` 必须确认后才级联硬删除。
 - 仓库案例全部为虚构数据，并明确标记为 synthetic。
 
 ## 本地开发

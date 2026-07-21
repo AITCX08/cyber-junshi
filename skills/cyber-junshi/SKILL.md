@@ -22,6 +22,8 @@ outcome records.
    - `facts`: directly observed or documented.
    - `inferences`: interpretations that may be wrong.
    - `unknowns`: information that could change the decision.
+   When domain guidance would help, call `search_knowledge` first and preserve its evidence
+   level and source identifiers; do not present E0 project heuristics as research findings.
 3. Call `compare_options` with at least two actions. Score short-term gain, long-term cost,
    reversibility, risk, and information gain from 0 through 10. Explain the tradeoff; do not
    present the score as objective truth.
@@ -30,6 +32,11 @@ outcome records.
 5. Call `record_outcome` only after the user explicitly asks to save the result. Never persist
    raw conversation content by default.
 6. Call `review_decision` when the user asks to evaluate a saved outcome.
+7. When the user names a recurring subject and explicitly asks to use prior context, call
+   `recall_subject` for that alias only. Never search across subjects.
+8. Call `remember_question` only when the user explicitly asks to remember the question or
+   selected facts. Explain that the raw submitted question is stored locally.
+9. Call `forget_subject` only after the user confirms permanent deletion.
 
 ## Response Contract
 
@@ -49,6 +56,7 @@ Return, in order:
 - Do not invent facts to fill an unknown layer.
 - Do not turn a ranking into a guarantee.
 - Do not write an outcome record without explicit user intent.
+- Do not write subject memory in the background or infer that mentioning a name grants consent.
 
 ## Example
 

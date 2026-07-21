@@ -14,6 +14,7 @@ from cyber_junshi.adapters import install_adapter
 from cyber_junshi.core.decision import compare_options, structure_case
 from cyber_junshi.core.models import OptionInput
 from cyber_junshi.core.safety import assess_safety
+from cyber_junshi.knowledge.catalog import validate_catalog
 from cyber_junshi.mcp.server import create_server, run_server
 
 app = typer.Typer(
@@ -86,12 +87,32 @@ def doctor(
             server = create_server(database_path)
             tools = asyncio.run(server.list_tools())
             report["storage"] = "healthy" if database_path.is_file() else "unhealthy"
-            report["mcp"] = "healthy" if len(tools) == 6 else "unhealthy"
+            report["mcp"] = "healthy" if len(tools) == 11 else "unhealthy"
             report["tool_count"] = len(tools)
     except Exception as exc:
         report["error"] = type(exc).__name__
     typer.echo(json.dumps(report, ensure_ascii=False))
     if any(report[key] != "healthy" for key in ("python", "storage", "mcp")):
+        raise typer.Exit(code=1)
+
+
+@app.command()
+def audit_knowledge(
+    root: Annotated[
+        Path | None,
+        typer.Option("--root", help="Repository root containing knowledge/catalog.yaml."),
+    ] = None,
+) -> None:
+    """Validate knowledge provenance, source links, and checked-in document paths."""
+
+    report = validate_catalog(root or Path.cwd())
+    typer.echo(
+        json.dumps(
+            {"item_count": report.item_count, "errors": list(report.errors)},
+            ensure_ascii=False,
+        )
+    )
+    if report.errors:
         raise typer.Exit(code=1)
 
 

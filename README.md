@@ -71,9 +71,29 @@ Guides: [Hermes](adapters/hermes/README.md), [OpenClaw](adapters/openclaw/README
 | `create_action_plan` | Read-only observation window and exit-rule validation |
 | `record_outcome` | Explicit local SQLite write |
 | `review_decision` | Read-only review of one stored outcome |
+| `search_knowledge` | Read-only local search with evidence and source identifiers |
+| `remember_question` | Explicitly save one question and selected memory under a subject alias |
+| `recall_subject` | Read only one named subject's recent questions and active memory |
+| `list_subjects` | List aliases and counts without returning question text |
+| `forget_subject` | Hard-delete one subject and linked memory after confirmation |
 
 The server instructions tell the Agent to run safety first when relevant, keep evidence layers
 separate, expose option costs, and define stop conditions before acting.
+
+## Independently authored knowledge pack
+
+The repository includes 19 core decision notes and 15 practical communication notes under
+[`knowledge/`](knowledge/). Every item is connected to a registered source and evidence level in
+[`knowledge/catalog.yaml`](knowledge/catalog.yaml). The upstream `goutoujunshi` repository was
+used only as a discovery-only topic lead; none of its prose, examples, templates, prompts, or
+code is included.
+
+Read the [content provenance policy](CONTENT_PROVENANCE.md) and run the audit before publishing
+knowledge changes:
+
+```bash
+uv run cyber-junshi audit-knowledge --root .
+```
 
 ## Skills
 
@@ -86,7 +106,11 @@ separate, expose option costs, and define stop conditions before acting.
 - Default database: `~/.cyber-junshi/cyber-junshi.db`
 - Override path: `CYBER_JUNSHI_DB=/path/to/file.db`
 - No cloud account, telemetry, model gateway, conversation capture, or automatic chat import.
-- Raw input is not logged. A record is written only by `record_outcome`.
+- Decision input is not logged. `record_outcome` writes only when explicitly called.
+- `remember_question` explicitly stores the submitted question, summary, and selected memory
+  under one local subject alias; it is never called in the background.
+- `recall_subject` never searches across subjects, and `forget_subject` requires confirmation
+  before cascading deletion.
 - Repository examples are fictional and marked synthetic.
 
 ## Develop locally

@@ -1,0 +1,90 @@
+schema_version: 1
+sources:
+  - id: project-four-mechanisms
+    title: Cyber Junshi four-mechanism decision model
+    publisher: Cyber Junshi contributors
+    url: project://README.zh-CN.md
+    source_type: project_original
+    use_mode: apache_2_original
+    commercial_allowed: true
+    verified_at: 2026-07-22
+  - id: cn-copyright-law
+    title: Copyright Law of the People's Republic of China
+    publisher: National People's Congress of the PRC
+    url: https://www.npc.gov.cn/c2/c30834/202011/t20201119_308796.html
+    source_type: official_law
+    use_mode: official_text_and_factual_summary
+    commercial_allowed: true
+    verified_at: 2026-07-22
+  - id: cn-civil-code
+    title: Civil Code of the People's Republic of China
+    publisher: National People's Congress of the PRC
+    url: https://wb.flk.npc.gov.cn/flfg/PDF/bd53dd912c1048f2aecbaa229238334b.pdf
+    source_type: official_law
+    use_mode: official_text_and_factual_summary
+    commercial_allowed: true
+    verified_at: 2026-07-22
+  - id: cn-anti-domestic-violence-law
+    title: Anti-domestic Violence Law of the People's Republic of China
+    publisher: National People's Congress of the PRC
+    url: https://www.npc.gov.cn/zgrdw/npc/xinwen/2015-12/28/content_1957457.htm
+    source_type: official_law
+    use_mode: official_text_and_factual_summary
+    commercial_allowed: true
+    verified_at: 2026-07-22
+  - id: who-violence-against-women
+    title: Violence against women fact sheet
+    publisher: World Health Organization
+    url: https://www.who.int/news-room/fact-sheets/detail/violence-against-women
+    source_type: official_guidance
+    use_mode: factual_summary_only
+    commercial_allowed: true
+    verified_at: 2026-07-22
+  - id: ftc-romance-scams
+    title: What To Know About Romance Scams
+    publisher: United States Federal Trade Commission
+    url: https://consumer.ftc.gov/articles/what-know-about-romance-scams
+    source_type: official_guidance
+    use_mode: factual_summary_only
+    commercial_allowed: true
+    verified_at: 2026-07-22
+  - id: cdc-healthy-communication
+    title: Tips for Effective and Healthy Communication
+    publisher: United States Centers for Disease Control and Prevention
+    url: https://stacks.cdc.gov/view/cdc/129149
+    source_type: official_guidance
+    use_mode: factual_summary_only
+    commercial_allowed: true
+    verified_at: 2026-07-22
+  - id: cdc-consent
+    title: Dating Matters youth handbook
+    publisher: United States Centers for Disease Control and Prevention
+    url: https://vetoviolence.cdc.gov/apps/dating-matters-facilitator/pdf/youth-handbook-7th-508.pdf
+    source_type: official_guidance
+    use_mode: factual_summary_only
+    commercial_allowed: true
+    verified_at: 2026-07-22
+  - id: attachment-emotion-regulation-2024
+    title: Adult Attachment and Emotion Regulation Flexibility in Romantic Relationships
+    publisher: Behavioral Sciences / PubMed Central
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC11428407/
+    source_type: primary_research
+    use_mode: factual_summary_only
+    commercial_allowed: true
+    verified_at: 2026-07-22
+  - id: relationship-progression-bias-2021
+    title: We're Not That Choosy - Emerging Evidence of a Progression Bias in Romantic Relationships
+    publisher: Personality and Social Psychology Review / PubMed Central
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC8597186/
+    source_type: research_review
+    use_mode: factual_summary_only
+    commercial_allowed: true
+    verified_at: 2026-07-22
+  - id: mbti-foundation-validity
+    title: Reliability and Validity of the MBTI Instrument
+    publisher: The Myers-Briggs Foundation
+    url: https://myersbriggs.org/research-and-library/validity-reliability/
+    source_type: publisher_material
+    use_mode: attribution_and_factual_summary_only
+    commercial_allowed: true
+    verified_at: 2026-07-22
