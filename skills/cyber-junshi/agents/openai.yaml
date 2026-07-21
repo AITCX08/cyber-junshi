@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cyber Junshi"
+  short_description: "Structured decision support for personal Agents"
+  default_prompt: "Use $cyber-junshi to structure this decision and define safe stop conditions."
