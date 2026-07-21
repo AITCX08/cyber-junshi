@@ -29,6 +29,9 @@ other person's stated boundary as evidence, not as an obstacle to optimize aroun
 5. Keep financial, property, or safety logistics separate from emotional persuasion. Use a
    lawful, documented channel or qualified local professional when a real dispute exists.
 6. Record an outcome only when the user explicitly asks.
+7. If the user explicitly asks to remember a recurring person, use a neutral alias and call
+   `remember_question`. Recall only that alias, and never merge two people's records.
+8. Treat deletion as permanent: call `forget_subject` only after confirmation.
 
 ## Message Shape
 

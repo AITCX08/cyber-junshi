@@ -1,29 +1,27 @@
-# Cyber Junshi / 赛博军师
+# 赛博军师 / Cyber Junshi
 
-[中文说明](README.zh-CN.md)
+[English](README.en.md)
 
-> Your personal Agent does not need more tactics. It needs better judgment.
+> 你的个人 Agent 不缺工具，缺的是判断力。
 
-Cyber Junshi is an agent-native, local-first decision-support core. It gives MCP-compatible
-personal Agents a small, explainable framework for safety routing, fact layering, option costs,
-and stop conditions. The host Agent handles language and context; Cyber Junshi validates the
-decision structure and can persist explicitly approved outcomes to local SQLite.
+赛博军师是一个 Agent 原生、本地优先的通用决策薄核。它通过 MCP 向个人 Agent 提供
+安全路由、事实分层、方案代价和停止条件四套可解释机制；宿主 Agent 负责理解语言，
+赛博军师负责校验结构，并把用户明确要求保存的结果写入本地 SQLite。
 
-This is decision support, not mental-health diagnosis, emergency response, legal advice, or a
-guarantee of outcomes.
+它不是心理诊断、紧急救援、法律意见，也不保证任何关系或决策结果。
 
-## Four mechanisms
+## 四套机制
 
-| Mechanism | Question it answers |
+| 机制 | 回答的问题 |
 | --- | --- |
-| Safety routing | Is this a normal, elevated-risk, or emergency situation? |
-| Fact layering | What is observed, inferred, and still unknown? |
-| Option costs | What are the gains, long-term costs, reversibility, risk, and information value? |
-| Stop conditions | When should an action continue, downgrade, or stop? |
+| 安全路由 | 当前是普通、较高风险还是紧急场景？ |
+| 事实分层 | 哪些是观察事实、合理推测和关键未知？ |
+| 方案代价 | 短期收益、长期成本、可逆性、风险和信息增益分别如何？ |
+| 停止条件 | 行动何时继续、降级或停止？ |
 
-## Run directly from GitHub
+## 直接从 GitHub 运行
 
-[uv](https://docs.astral.sh/uv/) is the only launcher you need:
+只需安装 [uv](https://docs.astral.sh/uv/)：
 
 ```bash
 uvx --from git+https://github.com/AITCX08/cyber-junshi cyber-junshi demo
@@ -31,18 +29,18 @@ uvx --from git+https://github.com/AITCX08/cyber-junshi cyber-junshi doctor
 uvx --from git+https://github.com/AITCX08/cyber-junshi cyber-junshi serve
 ```
 
-After a PyPI release, the shorter server command is:
+未来发布到 PyPI 后可以使用短命令：
 
 ```bash
 uvx cyber-junshi serve
 ```
 
-The MCP transport in v0.1 is stdio. The client launches and manages the server process.
+v0.1 使用 MCP stdio，由宿主 Agent 启动并管理服务进程。
 
-## One-command Agent setup
+## 一键接入个人 Agent
 
-Setup previews the exact change and writes nothing by default. Add `--apply` to modify only the
-target Agent configuration. Existing files are backed up and unrelated settings are preserved.
+安装命令默认只预览，不写文件。确认预览后加 `--apply`；程序只修改目标 Agent 的
+配置，保留无关设置，并在覆盖现有文件前创建时间戳备份。
 
 ```bash
 uvx --from git+https://github.com/AITCX08/cyber-junshi cyber-junshi install hermes
@@ -51,45 +49,59 @@ uvx --from git+https://github.com/AITCX08/cyber-junshi cyber-junshi install code
 uvx --from git+https://github.com/AITCX08/cyber-junshi cyber-junshi install claude-desktop
 ```
 
-Apply one integration after reviewing its preview:
+确认后执行，例如：
 
 ```bash
 uvx --from git+https://github.com/AITCX08/cyber-junshi cyber-junshi install hermes --apply
 ```
 
-Guides: [Hermes](adapters/hermes/README.md), [OpenClaw](adapters/openclaw/README.md),
-[Codex](adapters/codex/README.md), and
-[Claude Desktop](adapters/claude-desktop/README.md).
+详细说明：[Hermes](adapters/hermes/README.md)、[OpenClaw](adapters/openclaw/README.md)、
+[Codex](adapters/codex/README.md)、[Claude Desktop](adapters/claude-desktop/README.md)。
 
-## MCP tools
+## 十一个 MCP 工具
 
-| Tool | Effect |
+| 工具 | 作用 |
 | --- | --- |
-| `assess_safety` | Read-only risk screening with reasons and next steps |
-| `structure_case` | Read-only fact/inference/unknown normalization |
-| `compare_options` | Read-only explainable option ranking |
-| `create_action_plan` | Read-only observation window and exit-rule validation |
-| `record_outcome` | Explicit local SQLite write |
-| `review_decision` | Read-only review of one stored outcome |
+| `assess_safety` | 只读安全筛查，返回等级、依据和下一步 |
+| `structure_case` | 只读整理事实、推测和未知 |
+| `compare_options` | 只读、可解释的方案排序 |
+| `create_action_plan` | 只读校验观察窗口和退出规则 |
+| `record_outcome` | 明确触发的本地 SQLite 写入 |
+| `review_decision` | 只读复盘一条已保存结果 |
+| `search_knowledge` | 只读检索本地知识，并返回证据等级和来源标识 |
+| `remember_question` | 明确保存一个对象的问题、摘要和选定记忆 |
+| `recall_subject` | 只读取指定对象的近期问题和有效记忆 |
+| `list_subjects` | 只列对象别名和数量，不返回问题正文 |
+| `forget_subject` | 确认后硬删除一个对象及其关联记忆 |
 
-The server instructions tell the Agent to run safety first when relevant, keep evidence layers
-separate, expose option costs, and define stop conditions before acting.
+## 独立生成的知识包
+
+[`knowledge/`](knowledge/) 下包含 19 篇核心知识和 15 篇实用表达。每条内容都在
+[`knowledge/catalog.yaml`](knowledge/catalog.yaml) 中登记来源与证据等级。上游
+`goutoujunshi` 仅作为选题发现线索；本仓库没有导入其正文、案例、话术模板、提示词或源码。
+
+内容变更应先阅读[来源与净室政策](CONTENT_PROVENANCE.md)，发布前运行：
+
+```bash
+uv run cyber-junshi audit-knowledge --root .
+```
 
 ## Skills
 
-- `skills/cyber-junshi`: generic decision workflow for Agent Skills-compatible hosts.
-- `skills/relationship`: consent-aware relationship example that rejects coercion, stalking,
-  diagnosis by label, impersonation, and boundary bypass.
+- `skills/cyber-junshi`：通用决策工作流。
+- `skills/relationship`：关系场景示例，明确拒绝操控、跟踪、冒充、人格诊断和绕过边界。
 
-## Local data and privacy
+## 本地数据与隐私
 
-- Default database: `~/.cyber-junshi/cyber-junshi.db`
-- Override path: `CYBER_JUNSHI_DB=/path/to/file.db`
-- No cloud account, telemetry, model gateway, conversation capture, or automatic chat import.
-- Raw input is not logged. A record is written only by `record_outcome`.
-- Repository examples are fictional and marked synthetic.
+- 默认数据库：`~/.cyber-junshi/cyber-junshi.db`
+- 可用 `CYBER_JUNSHI_DB=/path/to/file.db` 修改路径。
+- 不需要云账号；无遥测、模型网关、聊天抓取或自动导入。
+- 决策输入不会自动记录；只有明确调用 `record_outcome` 才保存结果。
+- `remember_question` 仅在明确调用时，把提交的问题、摘要和选定记忆保存到一个本地对象别名下。
+- `recall_subject` 不跨对象检索；`forget_subject` 必须确认后才级联硬删除。
+- 仓库案例全部为虚构数据，并明确标记为 synthetic。
 
-## Develop locally
+## 本地开发
 
 ```bash
 git clone https://github.com/AITCX08/cyber-junshi.git
@@ -106,12 +118,11 @@ docker build -t cyber-junshi .
 docker run --rm -i -v cyber-junshi-data:/data cyber-junshi
 ```
 
-Because v0.1 uses stdio, keep stdin open (`-i`) and configure the Docker command in the MCP
-client rather than running it as a background HTTP service.
+v0.1 是 stdio 服务，因此需要保留标准输入（`-i`），并让 MCP 客户端启动容器。
 
-## Deliberate limits
+## 明确不做
 
-v0.1 does not decrypt or capture chats, inspect user accounts, ship a web dashboard, call an LLM,
-sync to a cloud service, depend on OpenViking, or automate social-media/community operations.
+v0.1 不解密或抓取聊天、不检查用户账号、不提供 Web 仪表盘、不内置模型、不做云同步、
+不强制依赖 OpenViking，也不自动化抖音或社群运营。
 
-Licensed under [Apache-2.0](LICENSE).
+许可证：[Apache-2.0](LICENSE)。

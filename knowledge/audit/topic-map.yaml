@@ -1,0 +1,46 @@
+schema_version: 1
+discovery_reference:
+  repository: powerycy/goutoujunshi
+  role: discovery_only
+  prohibited_uses:
+    - prose
+    - examples
+    - dialogue_templates
+    - exercises
+    - headings_and_order
+    - prompts_and_workflows
+topics:
+  - {id: core-01, topic: evidence boundaries, action: rebuild_primary}
+  - {id: core-02, topic: relationship psychology, action: rebuild_primary}
+  - {id: core-03, topic: attachment and emotion, action: rebuild_primary}
+  - {id: core-04, topic: personality labels and MBTI limits, action: rebuild_primary}
+  - {id: core-05, topic: manipulation and PUA safety, action: exclude_and_redesign}
+  - {id: core-06, topic: attraction and dating decisions, action: project_original}
+  - {id: core-07, topic: conflict and repair, action: rebuild_primary}
+  - {id: core-08, topic: consent and intimacy, action: rebuild_primary}
+  - {id: core-09, topic: online dating and fraud, action: rebuild_primary}
+  - {id: core-10, topic: philosophies of love, action: exclude_and_redesign}
+  - {id: core-11, topic: marriage and family, action: rebuild_primary}
+  - {id: core-12, topic: money housework parenting and families, action: project_original}
+  - {id: core-13, topic: history of marriage, action: rebuild_primary}
+  - {id: core-14, topic: social and family change, action: rebuild_primary}
+  - {id: core-15, topic: breakup betrayal and repair, action: rebuild_primary}
+  - {id: core-16, topic: relationship diversity, action: project_original}
+  - {id: core-17, topic: China law safety and crisis routing, action: rebuild_primary}
+  - {id: core-18, topic: exercises and dialogue cards, action: exclude_and_redesign}
+  - {id: core-19, topic: source index, action: rebuild_primary}
+  - {id: practical-00, topic: practical usage boundaries, action: exclude_and_redesign}
+  - {id: practical-01, topic: arguments, action: exclude_and_redesign}
+  - {id: practical-02, topic: praise, action: exclude_and_redesign}
+  - {id: practical-03, topic: emotional support, action: exclude_and_redesign}
+  - {id: practical-04, topic: awkward moments, action: exclude_and_redesign}
+  - {id: practical-05, topic: conversation, action: exclude_and_redesign}
+  - {id: practical-06, topic: low-information replies, action: exclude_and_redesign}
+  - {id: practical-07, topic: asking for help, action: exclude_and_redesign}
+  - {id: practical-08, topic: logical expression, action: exclude_and_redesign}
+  - {id: practical-09, topic: presence and boundaries, action: exclude_and_redesign}
+  - {id: practical-10, topic: networking, action: exclude_and_redesign}
+  - {id: practical-11, topic: initiating conversation, action: exclude_and_redesign}
+  - {id: practical-12, topic: manager rapport, action: exclude_and_redesign}
+  - {id: practical-13, topic: social isolation, action: exclude_and_redesign}
+  - {id: practical-14, topic: rejection, action: exclude_and_redesign}
