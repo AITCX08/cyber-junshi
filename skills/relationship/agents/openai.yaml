@@ -1,0 +1,4 @@
+interface:
+  display_name: "Relationship Decisions"
+  short_description: "Consent-aware support for relationship decisions"
+  default_prompt: "Use $relationship to evaluate this relationship decision without coercion or boundary bypass."
