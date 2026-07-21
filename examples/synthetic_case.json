@@ -1,0 +1,34 @@
+{
+  "synthetic": true,
+  "case_id": "synthetic-case-001",
+  "case": {
+    "facts": [
+      "A fictional collaborator cancelled one meeting."
+    ],
+    "inferences": [
+      "The collaborator may be avoiding the project."
+    ],
+    "unknowns": [
+      "Why the meeting was cancelled.",
+      "Whether a new time will be proposed."
+    ]
+  },
+  "options": [
+    {
+      "name": "Send one clarification and observe",
+      "short_term_gain": 6,
+      "long_term_cost": 2,
+      "reversibility": 9,
+      "risk": 3,
+      "information_gain": 8
+    },
+    {
+      "name": "Send repeated follow-ups",
+      "short_term_gain": 8,
+      "long_term_cost": 8,
+      "reversibility": 2,
+      "risk": 8,
+      "information_gain": 2
+    }
+  ]
+}

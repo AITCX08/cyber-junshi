@@ -13,6 +13,7 @@ def test_all_adapter_previews_launch_the_same_stdio_server(tmp_path: Path) -> No
     for agent in ("hermes", "openclaw", "codex", "claude-desktop"):
         rendered = render_adapter(agent, home=tmp_path, system_name="Windows")
         assert "uvx" in rendered.preview
+        assert "git+https://github.com/AITCX08/cyber-junshi" in rendered.preview
         assert "cyber-junshi" in rendered.preview
         assert "serve" in rendered.preview
 
@@ -39,7 +40,12 @@ def test_hermes_apply_preserves_unrelated_config_and_is_idempotent(tmp_path: Pat
     assert parsed["theme"] == "dark"
     assert parsed["mcp_servers"]["cyber_junshi"] == {
         "command": "uvx",
-        "args": ["cyber-junshi", "serve"],
+        "args": [
+            "--from",
+            "git+https://github.com/AITCX08/cyber-junshi",
+            "cyber-junshi",
+            "serve",
+        ],
     }
 
 
@@ -55,6 +61,8 @@ def test_codex_apply_preserves_existing_toml(tmp_path: Path) -> None:
     assert parsed["model"] == "example-model"
     assert parsed["mcp_servers"]["cyber_junshi"]["command"] == "uvx"
     assert list(parsed["mcp_servers"]["cyber_junshi"]["args"]) == [
+        "--from",
+        "git+https://github.com/AITCX08/cyber-junshi",
         "cyber-junshi",
         "serve",
     ]
@@ -72,7 +80,12 @@ def test_claude_apply_preserves_existing_json(tmp_path: Path) -> None:
 
     assert result.changed
     assert parsed["appearance"] == "dark"
-    assert parsed["mcpServers"]["cyber-junshi"]["args"] == ["cyber-junshi", "serve"]
+    assert parsed["mcpServers"]["cyber-junshi"]["args"] == [
+        "--from",
+        "git+https://github.com/AITCX08/cyber-junshi",
+        "cyber-junshi",
+        "serve",
+    ]
 
 
 def test_malformed_configuration_is_never_replaced(tmp_path: Path) -> None:
@@ -106,6 +119,10 @@ def test_openclaw_apply_executes_argument_list_without_shell(tmp_path: Path) -> 
                 "cyber-junshi",
                 "--command",
                 "uvx",
+                "--arg",
+                "--from",
+                "--arg",
+                "git+https://github.com/AITCX08/cyber-junshi",
                 "--arg",
                 "cyber-junshi",
                 "--arg",

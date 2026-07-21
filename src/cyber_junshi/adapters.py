@@ -16,7 +16,8 @@ import yaml
 
 _SUPPORTED_AGENTS = ("hermes", "openclaw", "codex", "claude-desktop")
 _STDIO_COMMAND = "uvx"
-_STDIO_ARGS = ["cyber-junshi", "serve"]
+_SOURCE_URL = "git+https://github.com/AITCX08/cyber-junshi"
+_STDIO_ARGS = ["--from", _SOURCE_URL, "cyber-junshi", "serve"]
 _OPENCLAW_COMMAND = (
     "openclaw",
     "mcp",
@@ -24,6 +25,10 @@ _OPENCLAW_COMMAND = (
     "cyber-junshi",
     "--command",
     "uvx",
+    "--arg",
+    "--from",
+    "--arg",
+    _SOURCE_URL,
     "--arg",
     "cyber-junshi",
     "--arg",
@@ -100,7 +105,7 @@ def render_adapter(
         preview = (
             "[mcp_servers.cyber_junshi]\n"
             f'command = "{_STDIO_COMMAND}"\n'
-            'args = ["cyber-junshi", "serve"]\n'
+            f'args = ["--from", "{_SOURCE_URL}", "cyber-junshi", "serve"]\n'
         )
         return AdapterPlan(normalized, resolved_home / ".codex" / "config.toml", preview)
 

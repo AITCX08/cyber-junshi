@@ -1,0 +1,10 @@
+services:
+  cyber-junshi:
+    build: .
+    image: cyber-junshi:local
+    stdin_open: true
+    volumes:
+      - cyber-junshi-data:/data
+
+volumes:
+  cyber-junshi-data:
