@@ -50,25 +50,30 @@ def test_default_readme_is_chinese_and_links_to_english() -> None:
     assert "[中文说明](README.md)" in english_readme
 
 
-def test_readmes_include_a_safe_skill_workflow_case() -> None:
-    required_tools = {
-        "assess_safety",
-        "search_knowledge",
-        "structure_case",
-        "compare_options",
-        "create_action_plan",
-        "remember_question",
-        "recall_subject",
-    }
+def test_readmes_include_safe_effect_examples() -> None:
     required_phrases = {
-        "README.md": ("虚构", "明确同意", "48 小时", "未回复"),
-        "README.en.md": ("fictional", "explicitly agrees", "48-hour", "no reply"),
+        "README.md": (
+            "## 效果演示",
+            "连续两次临时取消",
+            "回复越来越少",
+            "前任",
+            "48 小时",
+            "未回复",
+            "赛博军师  ❯",
+        ),
+        "README.en.md": (
+            "## Effect examples",
+            "cancelled two meetings",
+            "replies have become sparse",
+            "former partner",
+            "48 hours",
+            "no reply",
+            "Cyber Junshi  ❯",
+        ),
     }
 
     for readme_name, phrases in required_phrases.items():
         content = (ROOT / readme_name).read_text(encoding="utf-8")
-        for tool in required_tools:
-            assert tool in content
         for phrase in phrases:
             assert phrase in content
 
