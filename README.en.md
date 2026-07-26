@@ -95,45 +95,37 @@ knowledge changes:
 uv run cyber-junshi audit-knowledge --root .
 ```
 
-## Real Skill workflow case (fictional)
+## Effect examples
 
-This is a synthetic example, not a real chat or consultation record. It does not diagnose
-anyone or guarantee a relationship outcome. A user asks: “Subject A cancelled two meetings at
-the last minute. Should I keep trying to schedule one?” The host Agent understands the request
-and writes the response; Cyber Junshi validates the decision structure. The tool snippets below
-illustrate a workflow and do not determine Subject A's motive.
+### Question: Subject A cancelled two meetings at the last minute. Should I keep trying to plan one?
 
-1. **Select the Skill and route safety.** The host Agent selects the `relationship` Skill and
-   calls `assess_safety` first. With no self-harm, violence, threat, coercion, stalking, or
-   privacy-exposure signal, the result is `level: "normal"`, so analysis can continue. A safety
-   signal would take priority over message optimization.
-2. **Search without claiming certainty.** `search_knowledge("communication boundary one
-   clarification")` returns local material such as
-   `{"id":"core-07","evidence_level":"E1","source_ids":["cdc-healthy-communication","project-four-mechanisms"]}`.
-   Evidence level and source identifiers make the basis reviewable; cancellations alone do not
-   prove avoidance, disinterest, or a personality label.
-3. **Separate facts, inferences, and unknowns.** `structure_case` keeps: facts (two last-minute
-   cancellations and no proposed new time); an inference (Subject A may not be available to
-   schedule now, not a proven motive); and unknowns (why, whether they want to meet, and when).
-4. **Compare option costs.** `compare_options` weighs waiting for a proposed time, sending one
-   clarification, and no further contact. This example chooses one clarification because it is
-   reversible and informative; no further contact remains a valid option instead of repeated
-   follow-ups.
-5. **Define stop conditions before acting.** `create_action_plan` sets a 48-hour observation
-   window: continue only if Subject A offers a specific time; stop if they decline; and stop if
-   there is no reply after 48 hours. Send only: “You cancelled at the last minute twice. We can
-   reschedule when it works for you; if you do not want to continue, please say so directly. I
-   will respect that and will not keep asking.” Do not send follow-ups, use another account, or
-   recruit someone else to contact them.
-6. **Memory is explicit and subject-isolated.** The host Agent asks whether the user explicitly
-   agrees to save this question and “one clarification; no reply means stop” under Subject A.
-   Only after the user explicitly agrees does it call `remember_question`; a later
-   `recall_subject("Subject A")` returns only that subject's questions and active memory. It does
-   not search across subjects or save anything in the background.
+Cyber Junshi  ❯ Do not translate “two cancellations” straight into “they do not like me.” What
+you know is limited: Subject A cancelled twice and has not proposed a new time. Their reason,
+interest, and current situation are still unknown. Do not fill those gaps with guesses or turn
+uncertainty into more pressure. Send one message: “You cancelled at the last minute twice. We can
+reschedule when it works for you; if you do not want to continue, please say so directly. I will
+respect that and will not keep asking.” Then allow 48 hours. Continue only if they offer a
+specific time; if they decline or there is no reply after 48 hours, stop asking. You are looking
+for voluntary communication, not a response obtained through repeated confirmation.
 
-The host Agent owns language, context, and presentation. Cyber Junshi owns safety routing,
-evidence layers, option comparison, stop conditions, and local memory only after explicit user
-authorization.
+### Question: Their replies have become sparse. I want to send several messages to see whether they care.
+
+Cyber Junshi  ❯ “Replies have become sparse” is an observation, not a verdict. It can mean they
+are busy, depleted, less interested, or simply communicating differently; you do not yet know
+which. Multiple messages may briefly ease anxiety, but they hand your judgment over to each reply.
+Say your need once: “I have noticed we have talked less recently. I am open to continuing, but I
+also want to know whether you have the same intention. If you need space, you can tell me directly.”
+Then leave room for an answer. If they ask for space, decline, or remain silent, respect that signal
+and stop following up. A boundary is not a test of whether someone will chase you back.
+
+### Question: My former partner asked for space, but I only want to send a friendly greeting. Can I?
+
+Cyber Junshi  ❯ When a former partner has clearly asked for space, a “friendly greeting” is still
+contact. Missing them is real, but it does not create permission to re-enter their life. Stop
+contact for now; write down what you want to say, lean on friends, and rebuild your own routine.
+Consider responding only if they initiate contact again. If property or safety logistics genuinely
+need handling, use one clear, necessary, documented channel. Respecting space is not giving up your
+dignity; it is refusing to preserve a paused relationship by going around its boundary.
 
 ## Skills
 
