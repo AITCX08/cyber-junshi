@@ -95,6 +95,46 @@ knowledge changes:
 uv run cyber-junshi audit-knowledge --root .
 ```
 
+## Real Skill workflow case (fictional)
+
+This is a synthetic example, not a real chat or consultation record. It does not diagnose
+anyone or guarantee a relationship outcome. A user asks: “Subject A cancelled two meetings at
+the last minute. Should I keep trying to schedule one?” The host Agent understands the request
+and writes the response; Cyber Junshi validates the decision structure. The tool snippets below
+illustrate a workflow and do not determine Subject A's motive.
+
+1. **Select the Skill and route safety.** The host Agent selects the `relationship` Skill and
+   calls `assess_safety` first. With no self-harm, violence, threat, coercion, stalking, or
+   privacy-exposure signal, the result is `level: "normal"`, so analysis can continue. A safety
+   signal would take priority over message optimization.
+2. **Search without claiming certainty.** `search_knowledge("communication boundary one
+   clarification")` returns local material such as
+   `{"id":"core-07","evidence_level":"E1","source_ids":["cdc-healthy-communication","project-four-mechanisms"]}`.
+   Evidence level and source identifiers make the basis reviewable; cancellations alone do not
+   prove avoidance, disinterest, or a personality label.
+3. **Separate facts, inferences, and unknowns.** `structure_case` keeps: facts (two last-minute
+   cancellations and no proposed new time); an inference (Subject A may not be available to
+   schedule now, not a proven motive); and unknowns (why, whether they want to meet, and when).
+4. **Compare option costs.** `compare_options` weighs waiting for a proposed time, sending one
+   clarification, and no further contact. This example chooses one clarification because it is
+   reversible and informative; no further contact remains a valid option instead of repeated
+   follow-ups.
+5. **Define stop conditions before acting.** `create_action_plan` sets a 48-hour observation
+   window: continue only if Subject A offers a specific time; stop if they decline; and stop if
+   there is no reply after 48 hours. Send only: “You cancelled at the last minute twice. We can
+   reschedule when it works for you; if you do not want to continue, please say so directly. I
+   will respect that and will not keep asking.” Do not send follow-ups, use another account, or
+   recruit someone else to contact them.
+6. **Memory is explicit and subject-isolated.** The host Agent asks whether the user explicitly
+   agrees to save this question and “one clarification; no reply means stop” under Subject A.
+   Only after the user explicitly agrees does it call `remember_question`; a later
+   `recall_subject("Subject A")` returns only that subject's questions and active memory. It does
+   not search across subjects or save anything in the background.
+
+The host Agent owns language, context, and presentation. Cyber Junshi owns safety routing,
+evidence layers, option comparison, stop conditions, and local memory only after explicit user
+authorization.
+
 ## Skills
 
 - `skills/cyber-junshi`: generic decision workflow for Agent Skills-compatible hosts.
